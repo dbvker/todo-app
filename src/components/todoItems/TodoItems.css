@@ -1,0 +1,143 @@
+.todo-items-wrapper{
+    height: calc(100vh - 120px);
+    width: 100%;
+    margin-left: 2%;
+}
+
+.todo-items-container{
+    margin-bottom: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.todo-items-container::-webkit-scrollbar {
+    width: 6px;
+    position: absolute;
+}
+
+.todo-items-container::-webkit-scrollbar-thumb {
+    background-color: rgb(186, 186, 192, 0.5);
+    border-radius: 6px;
+}
+.todo-header{
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.bg-dark{
+    background-color: #383A3F;
+    color: #FFFFFF;
+    transition: 750ms;
+}
+
+.bg-light{
+    background-color: #E6E6E6;
+    color: #383A3F;
+    transition: 750ms;
+}
+
+.todo-header-title{}
+
+.todo-header-info{
+    display: flex;
+    align-items: center;
+}
+
+.todo-header-info p{
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.todo-header-info p:hover{
+    text-decoration: underline;
+}
+
+.todo-header-info button{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    padding: 0px;
+    outline: none;
+    border: none;
+}
+
+.hidden{
+    display: none;
+}
+
+.todo-tasks{}
+
+.todo-tasks-title{
+    font-size: 18px;
+    font-weight: 700;
+    padding: 20px;
+}
+
+.todo-task-item{
+    padding: 10px 10px;
+    margin: 0px 20px;
+    border-bottom: 1px solid #383A3F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-task-item:last-child{
+    border-bottom: 0px;
+}
+
+.priority-one{
+    background-color: #4DB866;
+    color: #ffffff;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.priority-three{
+    background-color: #C5343B;
+    color: #ffffff;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.todo-task-input{
+    width: calc(100% - 40px);
+    margin: 5px 20px 0;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+}
+
+.input-dark{
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0s;
+}
+
+.input-dark::placeholder{
+    color: white;
+}
+
+.input-light{
+    background-color: rgba(80, 80, 80, 0.2);
+    color: #202124;
+    transition: 0s;
+}
+
+.input-light::placeholder{
+    color: #202124;
+}

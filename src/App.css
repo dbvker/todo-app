@@ -1,38 +1,135 @@
-.App {
-  text-align: center;
+html {
+    overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.dark-mode {
+    background: #202124;
+    color: #ffffff;
+    transition: 750ms;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.grey {
+    background: #3d3d3d;
+    color: #ffffff;
+    transition: 750ms;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.light-mode {
+    background: #ffffff;
+    color: #202124;
+    transition: 750ms;
 }
 
-.App-link {
-  color: #61dafb;
+.app {
+    min-height: 100vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.site-wrapper {
+    width: 90%;
+    max-width: 1400px;
+    margin: 20px auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.todo-items-container {
+    width: 97%;
+    margin-left: 1%;
+}
+
+.modal-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    width: 440px;
+    padding: 40px;
+    border-radius: 14px;
+}
+
+.modal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.modal-top h1 {
+    margin-top: 0;
+    display: inline-block;
+}
+
+.modal-top button {
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+    border-radius: 50px;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(128, 128, 128);
+    outline: none;
+    box-sizing: border-box;
+}
+
+.modal p {
+    background-color: rgb(245, 2, 51);
+    color: white;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    margin: 0;
+    padding: 7px;
+    border-radius: 6px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 0;
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.color-wrapper {
+    width: 100%;
+    display: flex;
+    padding: 0px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.color-btn {
+    height: 50px;
+    width: 50px;
+    padding: 20px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 30px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    position: relative;
+}
+
+.active {
+    border-radius: 100px;
+    transition: 400ms all linear;
 }

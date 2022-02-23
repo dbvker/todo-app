@@ -1,0 +1,31 @@
+.header-container {
+    width: 90%;
+    max-width: 1400px;
+    height: 35px;
+    margin: 0 auto;
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    top: 0;
+}
+
+.header-left{
+    font-size: 24px;
+}
+
+.header-right{
+    display: flex;
+    align-items: center;
+}
+
+.header-right button {
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #E6E6E6;
+}

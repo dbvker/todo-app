@@ -1,0 +1,16 @@
+.todo-list-container {
+    width: 40%;
+    height: calc(100vh - 120px);
+    overflow-y: scroll;
+    max-width: 300px;
+    padding-right: 8px;
+}
+
+.todo-list-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.todo-list-container::-webkit-scrollbar-thumb {
+    background-color: rgb(186, 186, 192, 0.5);
+    border-radius: 6px;
+}
