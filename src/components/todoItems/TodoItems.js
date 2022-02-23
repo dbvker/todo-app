@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Icon from '@material-ui/core/Icon';
 import './TodoItems.css';
 
+// import data from '../../data';
+
 const initialInputValue = {
     itemID: Date.now(),
     title: '',
@@ -10,7 +12,7 @@ const initialInputValue = {
 };
 
 const TodoItems = (props) => {
-    const { index, todoData, theme } = props;
+    const { index, item, todoData, setTodoData, theme } = props;
     const { selected } = props
     const [inputValue, setInputValue] = useState(initialInputValue);
 
@@ -21,6 +23,18 @@ const TodoItems = (props) => {
         });
     };
 
+
+    // const selectedList = todoData.find(list => list.id === selected);
+
+    // const incompeletedTasks = item.tasks.filter(task => !task.completed).length;
+
+    // const data = todoData.find(list => list.listID === selected);
+    // console.log('data bruh',  data);
+
+console.log('todoData', todoData);
+// console.log(selected);
+// console.log(index);
+
     const handleAddItem = (e) => {
         if (e.key === 'Enter') {
             if (inputValue.title.length === 0) {
@@ -28,18 +42,18 @@ const TodoItems = (props) => {
             } else {
                 console.log('pressed enter key');
                 setInputValue(initialInputValue);
+                const data = todoData.find(list => list.listID === selected);
+                console.log('data bruh',  data);
             }
         }
     };
 
-    console.log('selected:', selected);
-    console.log('props:', props);
-    console.log('index:', index);
+
     return (
         <div className={selected === index ? 'todo-items-wrapper' : 'hidden'}>
             <div className='todo-items-container'>
                 <div className={theme ? 'todo-header bg-dark' : 'todo-header bg-light'}>
-                    <div className='todo-header-title'>{todoData.title}</div>
+                    <div className='todo-header-title'>{item.title}</div>
                     <div className='todo-header-info'>
                         <p>Join List</p>
                         <button>
@@ -53,7 +67,7 @@ const TodoItems = (props) => {
 
                 <div className='todo-tasks '>
                     <div className='todo-tasks-title'>To Do:</div>
-                    {todoData.tasks.map((task, index) => {
+                    {item.tasks.map((task, index) => {
                         return (
                             !task.completed && (
                                 <div key={index} className='todo-task-item'>
@@ -66,12 +80,20 @@ const TodoItems = (props) => {
                             )
                         );
                     })}
-                    <input className={theme ? 'todo-task-input input-dark' : 'todo-task-input input-light'} type='text' placeholder='Add new item' name='title' value={inputValue.title} onChange={handleChanges} onKeyDown={handleAddItem} />
+                    <input
+                        className={theme ? 'todo-task-input input-dark' : 'todo-task-input input-light'}
+                        type='text'
+                        placeholder='Add new item'
+                        name='title'
+                        value={inputValue.title}
+                        onChange={handleChanges}
+                        onKeyDown={handleAddItem}
+                    />
                 </div>
 
                 <div className='todo-tasks '>
                     <div className='todo-tasks-title'>Completed:</div>
-                    {todoData.tasks.map((task, index) => {
+                    {item.tasks.map((task, index) => {
                         return (
                             task.completed && (
                                 <div key={index} className='todo-task-item'>
@@ -94,7 +116,8 @@ const TodoItems = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        selected: state.selected,
+        selected: state.todoList.selected,
+        theme: state.header.theme
     };
 };
 

@@ -1,6 +1,6 @@
 const data = [
     {
-        listID: 1,
+        listID: 0,
         title: "Today's List",
         color: '255,104,31',
         tasks: [
@@ -56,7 +56,7 @@ const data = [
             {
                 itemID: '1.4',
                 title: 'go shopping',
-                completed: false,
+                completed: true,
             },
         ],
     },

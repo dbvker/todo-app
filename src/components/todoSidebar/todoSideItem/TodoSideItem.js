@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { toggleSelected } from '../../../actions/todoListActions';
+import { toggleSelected } from '../../../reducers/todoList/todoListActions';
 
 import Icon from '@material-ui/core/Icon';
-
-import './TodoListItem.css';
+import './TodoSideItem.css';
 
 const TodoListItem = (props) => {
-    const { item, index } = props;
+    const { item, index, toggleSelected } = props;
     const color = item.color;
 
     const backgroundColor = {
@@ -15,12 +14,14 @@ const TodoListItem = (props) => {
         fontSize: '22px'
     };
 
-    console.log('item props', props.selected, 'item Index:', index)
+    const incompeletedTasks = item.tasks.filter(task => !task.completed).length;
+    const taskString = incompeletedTasks === 1 ? "Task" : "Tasks";
+
     return (
-        <div className='todo-list-item' style={backgroundColor} onClick={() => console.log(index)}>
+        <div className='todo-list-item' style={backgroundColor} onClick={() => toggleSelected(index)}>
             <div>
                 <p>{item.title}</p>
-                <span>{item.tasks.length} Items</span>
+                <span>{incompeletedTasks} {taskString}</span>
             </div>
             <button>
                 <Icon className='icon'>more_horiz</Icon>
@@ -31,7 +32,7 @@ const TodoListItem = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        selected: state.selected,
+        selected: state.todoList.selected,
     };
 };
 

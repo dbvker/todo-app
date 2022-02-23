@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { toggleTheme } from '../../reducers/header/headerActions';
+
 
 import './Header.css';
 
@@ -17,4 +20,10 @@ const Header = (props) => {
     );
 };
 
-export default Header;
+const mapStateToProps = (state) => {
+    return {
+        theme: state.header.theme,
+    };
+};
+
+export default connect(mapStateToProps, { toggleTheme })(Header);

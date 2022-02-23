@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './TodoList.css';
+import './TodoSidebar.css';
 
-import TodoListItem from './todoListItem/TodoListItem';
+import TodoSideItem from './todoSideItem/TodoSideItem';
 
 const TodoList = (props) => {
     const { todoData } = props;
@@ -10,7 +10,7 @@ const TodoList = (props) => {
     <div className='todo-list-container'>
         {todoData.map((item, index) => {
             return (
-                <TodoListItem key={index} index={index} item={item} />
+                <TodoSideItem key={index} index={index} item={item} />
             );
         })}
     </div>

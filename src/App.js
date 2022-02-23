@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
-import './App.css';
+import { connect } from 'react-redux';
 
+// actions
+import { addTitle } from './reducers/newList/newListActions';
+
+import './App.css';
 import data from './data';
 
 import Header from './components/header/Header';
-import TodoList from './components/todoList/TodoList';
+import TodoSidebar from './components/todoSidebar/TodoSidebar';
 import TodoItems from './components/todoItems/TodoItems';
 
 const orange = '255,104,31';
@@ -23,22 +27,19 @@ const initialValues = {
     tasks: [],
 };
 
-const App = () => {
-    const [theme, setTheme] = useState(true);
+const App = (props) => {
+    const { theme } = props; // stateToProps
+    const { addTitle } = props; // actionsToProps
+
     const [todoData, setTodoData] = useState(data);
     const [newListOpen, setNewListOpen] = useState(false);
     const [formValues, setFormValues] = useState(initialValues);
     const [error, setError] = useState('');
-
-    const [color, setColor] = useState(yellow);
+    const [color, setColor] = useState(orange);
 
     useEffect(() => {
         setColor(formValues.color);
       }, [formValues]);
-
-    const toggleTheme = () => {
-        setTheme(!theme);
-    };
 
     const handleNewListClick = () => {
         setNewListOpen(!newListOpen);
@@ -50,8 +51,7 @@ const App = () => {
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value,
-        });
-        
+        }); 
     };
 
     const handleCreateList = (e) => {
@@ -67,18 +67,23 @@ const App = () => {
         }
     };
 
+    // console.log(todoData[0].tasks);
     return (
         <div className={theme ? 'app dark-mode' : 'app light-mode'}>
-            <Header toggleTheme={toggleTheme} theme={theme} handleNewListClick={handleNewListClick} />
+            <Header theme={theme} handleNewListClick={handleNewListClick} />
             <div className='site-wrapper'>
-                <TodoList todoData={todoData} 
+                <TodoSidebar todoData={todoData} 
                 theme={theme} />
                 <div className='todo-items-container'>
                     {todoData.map((item, index) => {
-                        return <TodoItems key={index} index={index} item={item} todoData={item} theme={theme} />;
+                        return <TodoItems key={index} index={index} item={item} todoData={todoData} setTodoData={setTodoData} theme={theme} />;
                     })}
                 </div>
             </div>
+
+
+
+
             {newListOpen && (
                 <div className='modal-container'>
                     <div className={theme ? 'modal dark-mode' : 'modal light-mode'}>
@@ -113,4 +118,10 @@ const App = () => {
     );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        theme: state.header.theme,
+    };
+};
+
+export default connect(mapStateToProps, { addTitle })(App);
