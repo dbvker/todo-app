@@ -29,7 +29,7 @@ const initialValues = {
 
 const App = (props) => {
     const { theme } = props; // stateToProps
-    const { addTitle } = props; // actionsToProps
+    // const { addTitle } = props; // actionsToProps
 
     const [todoData, setTodoData] = useState(data);
     const [newListOpen, setNewListOpen] = useState(false);
@@ -67,7 +67,6 @@ const App = (props) => {
         }
     };
 
-    // console.log(todoData[0].tasks);
     return (
         <div className={theme ? 'app dark-mode' : 'app light-mode'}>
             <Header theme={theme} handleNewListClick={handleNewListClick} />

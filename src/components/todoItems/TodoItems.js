@@ -12,7 +12,7 @@ const initialInputValue = {
 };
 
 const TodoItems = (props) => {
-    const { index, item, todoData, setTodoData, theme } = props;
+    const { index, item, todoData, theme } = props;
     const { selected } = props
     const [inputValue, setInputValue] = useState(initialInputValue);
 
@@ -22,18 +22,6 @@ const TodoItems = (props) => {
             [e.target.name]: e.target.value,
         });
     };
-
-
-    // const selectedList = todoData.find(list => list.id === selected);
-
-    // const incompeletedTasks = item.tasks.filter(task => !task.completed).length;
-
-    // const data = todoData.find(list => list.listID === selected);
-    // console.log('data bruh',  data);
-
-console.log('todoData', todoData);
-// console.log(selected);
-// console.log(index);
 
     const handleAddItem = (e) => {
         if (e.key === 'Enter') {
