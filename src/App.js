@@ -38,22 +38,6 @@ const App = (props) => {
     const [color, setColor] = useState(orange);
 
     const userID = localStorage.getItem('todo-app-id')
-    
-    // useEffect(() => {
-    //     axios
-    //         .get(`http://localhost:9000/todo/1`)
-    //         .then(res => {
-    //             setSelectedTasks(res.data);
-    //             console.log(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // }, [setTodoData])
-
-    // if (localStorage.getItem('todo-app-token')) {
-    //     window.location.reload(true);
-    // }
 
     useEffect(() => {
         axios
@@ -66,9 +50,7 @@ const App = (props) => {
             })
     }, [setTodoData])
 
-    useEffect(() => {
-        setColor(formValues.color);
-      }, [formValues]);
+    useEffect(() => setColor(formValues.color), [formValues]);
 
     const handleNewListClick = () => {
         setNewListOpen(!newListOpen);
