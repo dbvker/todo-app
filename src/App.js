@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 
 // actions
 import { addTitle } from './reducers/newList/newListActions';
 
 import './App.css';
-import data from './data';
 
-import Header from './components/header/Header';
 import TodoSidebar from './components/todoSidebar/TodoSidebar';
 import TodoItems from './components/todoItems/TodoItems';
 
@@ -28,14 +27,44 @@ const initialValues = {
 };
 
 const App = (props) => {
-    const { theme } = props; // stateToProps
+    const { theme, selected } = props; // stateToProps
     // const { addTitle } = props; // actionsToProps
 
-    const [todoData, setTodoData] = useState(data);
+    const [todoData, setTodoData] = useState([]);
+    const [selectedTasks, setSelectedTasks] = useState([])
     const [newListOpen, setNewListOpen] = useState(false);
     const [formValues, setFormValues] = useState(initialValues);
     const [error, setError] = useState('');
     const [color, setColor] = useState(orange);
+
+    const userID = localStorage.getItem('todo-app-id')
+    
+    // useEffect(() => {
+    //     axios
+    //         .get(`http://localhost:9000/todo/1`)
+    //         .then(res => {
+    //             setSelectedTasks(res.data);
+    //             console.log(res.data);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }, [setTodoData])
+
+    // if (localStorage.getItem('todo-app-token')) {
+    //     window.location.reload(true);
+    // }
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:9000/todo/`)
+            .then(res => {
+                setTodoData(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [setTodoData])
 
     useEffect(() => {
         setColor(formValues.color);
@@ -69,18 +98,21 @@ const App = (props) => {
 
     return (
         <div className={theme ? 'app dark-mode' : 'app light-mode'}>
-            <Header theme={theme} handleNewListClick={handleNewListClick} />
+            
+            { todoData.length > 0 ? 
             <div className='site-wrapper'>
                 <TodoSidebar todoData={todoData} 
                 theme={theme} />
                 <div className='todo-items-container'>
-                    {todoData.map((item, index) => {
-                        return <TodoItems key={index} index={index} item={item} todoData={todoData} setTodoData={setTodoData} theme={theme} />;
-                    })}
+                
+                    {/* {selectedTasks.tasks.map((item, index) => {
+                        return <TodoItems key={index} index={index} item={item} todoData={selectedTasks} setTodoData={setSelectedTasks} theme={theme} />;
+                    })} */}
                 </div>
-            </div>
+            </div> :
+            <h1><center>Please create a to do list.</center></h1>
 
-
+            }
 
 
             {newListOpen && (
@@ -113,6 +145,7 @@ const App = (props) => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
@@ -120,6 +153,7 @@ const App = (props) => {
 const mapStateToProps = (state) => {
     return {
         theme: state.header.theme,
+        selected: state.todoList.selected,
     };
 };
 
