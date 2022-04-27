@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     overflow: hidden;
 }
@@ -27,7 +33,8 @@ html {
 .site-wrapper {
     width: 90%;
     max-width: 1400px;
-    margin: 20px auto;
+    margin: 0px auto;
+    padding: 20px 0;
     display: flex;
     overflow: hidden;
 }
@@ -132,4 +139,39 @@ html {
 .active {
     border-radius: 100px;
     transition: 400ms all linear;
+}
+
+
+/* SIGN IN PAGE */
+.auth-container {
+    width: 30%;
+    /* background-color: red; */
+    margin: 80px auto;
+    /* padding: 20px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: #1AD086; */
+}
+
+.auth-input {
+    width: 100%;
+    height: 36px;
+    margin: 10px 0;
+    padding: 12px;
+    outline: none;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+}
+
+.auth-button {
+    width: 100%;
+    height: 36px;
+    margin: 10px 0;
+    padding: 12px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background-color: #1AD086;
+    color: #fff;
 }

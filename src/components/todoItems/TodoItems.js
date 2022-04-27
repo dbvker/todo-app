@@ -6,7 +6,6 @@ import './TodoItems.css';
 // import data from '../../data';
 
 const initialInputValue = {
-    itemID: Date.now(),
     title: '',
     completed: false,
 };
@@ -36,6 +35,7 @@ const TodoItems = (props) => {
         }
     };
 
+    console.log('ITEM',item);
 
     return (
         <div className={selected === index ? 'todo-items-wrapper' : 'hidden'}>
@@ -55,7 +55,7 @@ const TodoItems = (props) => {
 
                 <div className='todo-tasks '>
                     <div className='todo-tasks-title'>To Do:</div>
-                    {item.tasks.map((task, index) => {
+                    {item.map((task, index) => {
                         return (
                             !task.completed && (
                                 <div key={index} className='todo-task-item'>
@@ -68,7 +68,7 @@ const TodoItems = (props) => {
                             )
                         );
                     })}
-                    <input
+                    {/* <input
                         className={theme ? 'todo-task-input input-dark' : 'todo-task-input input-light'}
                         type='text'
                         placeholder='Add new item'
@@ -76,10 +76,10 @@ const TodoItems = (props) => {
                         value={inputValue.title}
                         onChange={handleChanges}
                         onKeyDown={handleAddItem}
-                    />
+                    /> */}
                 </div>
 
-                <div className='todo-tasks '>
+                {/* <div className='todo-tasks '>
                     <div className='todo-tasks-title'>Completed:</div>
                     {item.tasks.map((task, index) => {
                         return (
@@ -96,7 +96,7 @@ const TodoItems = (props) => {
                             )
                         );
                     })}
-                </div>
+                </div> */}
             </div>
         </div>
     );

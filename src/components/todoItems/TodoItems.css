@@ -27,7 +27,7 @@
     border-radius: 6px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     position: sticky;
     top: 0;
 }
@@ -44,11 +44,16 @@
     transition: 750ms;
 }
 
-.todo-header-title{}
+.todo-header-title{
+    word-break: break-all;
+}
 
 .todo-header-info{
     display: flex;
-    align-items: center;
+    align-items:flex-start;
+    min-width: 180px;
+    justify-content: right;
+    margin-top: 4px;
 }
 
 .todo-header-info p{
