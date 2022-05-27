@@ -2,13 +2,21 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 
-// actions
+// Actions
 import { addTitle } from './reducers/newList/newListActions';
 
-import './App.css';
+// Styles
+import './styles/App.css';
 
-import TodoSidebar from './components/todoSidebar/TodoSidebar';
-import TodoItems from './components/todoItems/TodoItems';
+// Assets
+import PlusDark from './assets/plus(dark).png';
+import PlusLight from './assets/plus(light).png';
+import WelcomeImage from './assets/welcomeImage.png';
+
+// Components
+import TodoSidebar from './components/TodoSidebar';
+import TodoItems from './components/TodoItems';
+import Header from './components/Header';
 
 const orange = '255,104,31';
 const yellow = '250,183,30';
@@ -29,58 +37,50 @@ const initialValues = {
 const App = (props) => {
     const { theme, selected } = props; // stateToProps
     // const { addTitle } = props; // actionsToProps
-
     const [todoData, setTodoData] = useState([]);
-    const [selectedTasks, setSelectedTasks] = useState([])
+    const items = todoData.map((item) => item.list_id);
+
+    const [selectedTasks, setSelectedTasks] = useState([]);
     const [newListOpen, setNewListOpen] = useState(false);
     const [formValues, setFormValues] = useState(initialValues);
     const [error, setError] = useState('');
     const [color, setColor] = useState(orange);
 
-    const userID = localStorage.getItem('todo-app-id')
-    
-    // useEffect(() => {
-    //     axios
-    //         .get(`http://localhost:9000/todo/1`)
-    //         .then(res => {
-    //             setSelectedTasks(res.data);
-    //             console.log(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // }, [setTodoData])
-
-    // if (localStorage.getItem('todo-app-token')) {
-    //     window.location.reload(true);
-    // }
+    const userID = localStorage.getItem('id');
 
     useEffect(() => {
         axios
-            .get(`http://localhost:9000/todo/`)
-            .then(res => {
+            .get(`http://localhost:9000/todo/${userID}`)
+            .then((res) => {
                 setTodoData(res.data);
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err);
-            })
-    }, [setTodoData])
+            });
+    }, [userID]);
 
     useEffect(() => {
-        setColor(formValues.color);
-      }, [formValues]);
+        axios
+            .get(`http://localhost:9000/todo/list/${items}`)
+            .then((res) => {
+                setSelectedTasks(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [items]);
 
-    const handleNewListClick = () => {
-        setNewListOpen(!newListOpen);
-        setError('');
-    };
+    useEffect(() => setColor(formValues.color), [formValues]);
+
+    const handleNewListClick = () => setNewListOpen(!newListOpen) && setError('');
 
     const handleChanges = (e) => {
         e.preventDefault();
+        setError('');
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value,
-        }); 
+        });
     };
 
     const handleCreateList = (e) => {
@@ -97,36 +97,46 @@ const App = (props) => {
     };
 
     return (
-        <div className={theme ? 'app dark-mode' : 'app light-mode'}>
-            
-            { todoData.length > 0 ? 
-            <div className='site-wrapper'>
-                <TodoSidebar todoData={todoData} 
-                theme={theme} />
-                <div className='todo-items-container'>
-                
-                    {/* {selectedTasks.tasks.map((item, index) => {
-                        return <TodoItems key={index} index={index} item={item} todoData={selectedTasks} setTodoData={setSelectedTasks} theme={theme} />;
-                    })} */}
+        <div className={theme ? 'app dark-primary' : 'app light-primary'}>
+            <Header handleNewListClick={handleNewListClick} />
+
+            {userID ? (
+                <div className='site-wrapper'>
+                    <TodoSidebar todoData={todoData} theme={theme} setSelectedTasks={setSelectedTasks} />
+                    <div className='todo-items-container'>
+                        {selectedTasks.map((item, index) => {
+                            return <TodoItems key={index} index={index} item={item} selectedTasks={selectedTasks} setTodoData={setSelectedTasks} theme={theme} />;
+                        })}
+                    </div>
                 </div>
-            </div> :
-            <h1><center>Please create a to do list.</center></h1>
-
-            }
-
+            ) : (
+                <div className='site-wrapper welcome-container'>
+                    <div className='welcome-left'>
+                        <h1 style={{marginBottom: '100px'}}>Better manage your todos.</h1>
+                        <button style={{ width: '30%', marginTop: '10px' }}>Sign In</button>
+                        <br /><br />OR<br /><br />
+                        <button style={{ width: '30%', marginTop: '10px' }}>Create an Account</button>
+                    </div>
+                    <div className='welcome-right'>
+                        <img src={WelcomeImage} />
+                    </div>
+                </div>
+            )}
 
             {newListOpen && (
                 <div className='modal-container'>
-                    <div className={theme ? 'modal dark-mode' : 'modal light-mode'}>
+                    <div className={theme ? 'modal dark-primary' : 'modal white-secondary'}>
                         <div className='modal-top'>
-                            <h1>Create New List</h1>
-                            <button onClick={handleNewListClick}>X</button>
+                            <div className='modal-title'>New List</div>
+                            <div className='modal-close-btn' onClick={handleNewListClick}>
+                                <img src={theme ? PlusLight : PlusDark} />
+                            </div>
                         </div>
-                        {error && <p>{error}</p>}
+                        {error && <p className='error-message'>{error}</p>}
                         <form>
-                            <h3>Title:</h3>
-                            <input type='text' placeholder='Title' name='title' value={formValues.title} onChange={handleChanges} />
-                            <h3>Color:</h3>
+                            <p>Title:</p>
+                            <input className='auth-input' type='text' placeholder='Title' name='title' value={formValues.title} onChange={handleChanges} />
+                            <p>Color:</p>
                             <div className='color-wrapper'>
                                 <button className={color === orange ? 'color-btn active' : 'color-btn'} style={{ backgroundColor: `rgb(${orange})` }} onClick={handleChanges} name='color' value={orange}></button>
                                 <button className={color === yellow ? 'color-btn active' : 'color-btn'} style={{ backgroundColor: `rgb(${yellow})` }} onClick={handleChanges} name='color' value={yellow}></button>
@@ -138,14 +148,13 @@ const App = (props) => {
                                 <button className={color === grey ? 'color-btn active' : 'color-btn'} style={{ backgroundColor: `rgb(${grey})` }} onClick={handleChanges} name='color' value={grey}></button>
                             </div>
                             <br />
-                            <button onClick={handleCreateList} className='submit-btn'>
+                            <button onClick={handleCreateList} style={{width: '100%'}}>
                                 Create List
                             </button>
                         </form>
                     </div>
                 </div>
             )}
-
         </div>
     );
 };

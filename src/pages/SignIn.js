@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-// import Header from '../components/header/Header';
+import Header from '../components/Header';
 
 const initialValues = {
     email: '',
@@ -23,9 +23,9 @@ const SignIn = (props) => {
             .post('http://localhost:9000/auth/signin', creds)
             .then((res) => {
                 console.log(res.data);
-                localStorage.setItem('todo-app-id', res.data.id);
-                localStorage.setItem('todo-app-firstName', res.data.firstName);
-                localStorage.setItem('todo-app-token', res.data.token);
+                localStorage.setItem('id', res.data.id);
+                localStorage.setItem('firstName', res.data.firstName);
+                localStorage.setItem('token', res.data.token);
                 navigate('/');
                 window.location.reload(true);
             })
@@ -36,7 +36,8 @@ const SignIn = (props) => {
     };
 
     return (
-        <div className={theme ? 'app dark-mode' : 'app light-mode'}>
+        <div className={theme ? 'app dark-primary' : 'app light-primary'}>
+            <Header />
             <div className='site-wrapper'>
                 <div className='auth-container'>
                     <h1>Sign In</h1>
@@ -46,8 +47,9 @@ const SignIn = (props) => {
                     <form onSubmit={handleSubmit}>
                         <input className='auth-input' type='email' placeholder='Email Address' name='email' value={creds.email} onChange={handleChanges} />
                         <input className='auth-input' type='password' placeholder='Password' name='password' value={creds.password} onChange={handleChanges} />
-                        <button className='auth-button'>Sign In</button>
-                    </form>
+                        <button style={{width: '100%', marginTop: '10px'}}>Sign In</button>
+                    </form><br />
+                    <p>Don't have an account? <Link to='/register'><u>Create one!</u></Link></p>
                 </div>
             </div>
         </div>

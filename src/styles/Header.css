@@ -16,7 +16,6 @@
     align-items: center;
     justify-content: space-between;
     user-select: none;
-    color: #1AD086;
 }
 
 .header-left{
@@ -36,6 +35,47 @@
 .header-right ul li {
     margin: 0 10px;
     font-weight: 500;
+}
+
+.header-link {
+    height: 40px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-link img {
+    height: 100%;
+}
+
+.header-link p {
+    font-weight: 600;
+    margin-top: -2px;
+    padding: 0;
+}
+
+.dark-link {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+}
+
+.dark-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.light-link {
+    background: rgba(87, 87, 87, 0.1);
+    color: #000000;
+}
+
+.light-link:hover {
+    background: rgba(87, 87, 87, 0.3);
 }
 
 a {

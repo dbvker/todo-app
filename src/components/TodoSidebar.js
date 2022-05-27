@@ -1,8 +1,8 @@
 import React from 'react';
 
-import './TodoSidebar.css';
+import '../styles/TodoSidebar.css';
 
-import TodoSideItem from './todoSideItem/TodoSideItem';
+import TodoSideItem from './TodoSideItem';
 
 const TodoList = (props) => {
     const { todoData } = props;
